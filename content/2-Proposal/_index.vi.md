@@ -24,7 +24,7 @@ Nền tảng loại bỏ vòng lặp thủ công "nghe — gỡ băng — tách 
 ### 3. Kiến trúc giải pháp
 Nền tảng được tổ chức thành 5 nhóm dịch vụ: Edge (toàn cầu), Managed (ngoài VPC), VPC (Chat & Voice thời gian thực), AI Processing Pipeline (managed, ngoài VPC) và Monitoring. Request đi vào qua CloudFront với WAF lọc; tài nguyên tĩnh phục vụ từ S3, API động đi qua API Gateway tới Lambda và DynamoDB, còn các phiên thời gian thực được định tuyến qua Internet Gateway tới ALB và các EC2 do Auto Scaling quản lý trên 2 AZ. Bundle họp được ghi vào S3 và kích hoạt pipeline EventBridge → Step Functions → Lambda → AI bên ngoài, kết quả lưu vào DynamoDB và thông báo qua SNS. Toàn hệ thống được CloudWatch giám sát.
 
-<img src="{{< relref "/" >}}images/2-Proposal/architecture.png" alt="AI Meeting Assistant">
+![AI Meeting Assistant – Kiến trúc](/images/2-Proposal/architecture.png)
 
 *Dịch vụ AWS sử dụng*
 - *Amazon CloudFront*: CDN phân phối dashboard Next.js và cache nội dung tĩnh.
